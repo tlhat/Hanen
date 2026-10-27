@@ -1,7 +1,7 @@
 name: Build Android APK
 
 on:
-  workflow_dispatch: # يتيح لك تشغيل البناء يدوياً بضغطة زر
+  workflow_dispatch:
 
 jobs:
   build:
@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up Java
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5 # تم التحديث إلى v5 لحل التحذير
         with:
           distribution: 'zulu'
           java-version: '17'
@@ -25,8 +25,8 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Build APK
-        run: flutter build apk --release
+      - name: Build APK with Verbose Logs
+        run: flutter build apk --release --verbose # أضفنا verbose لمعرفة تفاصيل أي خطأ داخلي
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
